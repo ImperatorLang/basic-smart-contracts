@@ -2,8 +2,11 @@
 
 This repository is dedicated to all things revolving Cardano smart contract development.
 
-We are proud that our lead developer graduated with the first cohort of the popular course **Plutus Pioneer Program** by Lars Brünjes of IOG (Input Output Global) April - June 2021.
-The material in this repositor is influenced by this course, but as we have developed smart contracts, we have drawn inspiration from loads of sources. All these sources and our own experience goes into the site.
+## CENT - a first cohort "Plutus Pioneer"
+Our lead developer graduated with the first cohort of the great course **Plutus Pioneer Program** by Lars Brünjes, Director of Education, IOG (Input Output Global) April - June 2021. You can read more about this in the repository https://github.com/input-output-hk/plutus-pioneer-program
+The material in our repository is influenced by this course and especially the basic topics will be familiar to those of you who have followed it. There are however differences. Where the course have long video presentations, we have instead condensed each topic as much as possible and only dive into one topic at a time. Another difference is that we focus on always trying to make the contracts usable, not only in your own Plutus playground (PAB) but usable on Cardano testnet. 
+
+As we have developed smart contracts, we have been inspired by many different sources. All these sources and our own experience goes into the site.
 
 ## The site is a work in progress
 It was created March 2022 and was made publicly available to you in April when the basic content had been created. Please follow the site. New and more advanced resources are added.
