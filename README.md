@@ -15,7 +15,7 @@ The objective of the site is not to be a course you follow from Lecture 1 until 
 
 We want this to be a library of reusable components from which we hope you will find inspiration to develop your own contracts. 
 
-## I'm not a developer, I want to buy a smart contract...
+## If you want to buy a smart contract...
 Reach out to us in any of the channels below and we can develop it for you.
 - E-mail: **developer'at'cent.stakepoolcentral.com** 
 - Twitter: **@centstakepool**
