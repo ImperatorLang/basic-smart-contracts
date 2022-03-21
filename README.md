@@ -1,6 +1,6 @@
 # Smart contracts
 
-This repository is dedicated to all things revolving Cardano smart contract development.
+This repository is dedicated to all things regarding Cardano smart contract development.
 
 ## CENT - a first cohort "Plutus Pioneer"
 Our lead developer graduated with the first cohort of the great course **Plutus Pioneer Program** by Lars Brünjes, Director of Education, IOG (Input Output Global) April - June 2021. You can read more about this in the repository https://github.com/input-output-hk/plutus-pioneer-program
@@ -9,7 +9,7 @@ The material in our repository is influenced by this course and especially the b
 As we have developed smart contracts, we have been inspired by many different sources. All these sources and our own experience goes into the site.
 
 ## The site is a work in progress
-It was created March 2022 and was made publicly available to you in April when the basic content had been created. Please follow the site. New and more advanced resources are added.
+It was created March 2022 and was made publicly available to you in April when the basic content had been created. New and more advanced resources will be added to the site, so make sure to come back from time to time.
 
 The objective of the site is not to be a course you follow from Lecture 1 until Lecture 10. Usually beginners will start at the beginning, but when the basics have been learned, you should be able to make use of the remaining site in the order you like. We try to make the topics as self containing as possible. If a topic requires first going trough earlier topics, we list these dependencies in the topic brief.
 
