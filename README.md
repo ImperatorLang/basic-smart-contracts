@@ -1,11 +1,12 @@
-# Smartcontracts
+# Smart contracts
 
 This repository is dedicated to all things revolving Cardano smart contract development.
 
 We are proud that our lead developer graduated with the first cohort of the popular course **Plutus Pioneer Program** by Lars Brünjes of IOG (Input Output Global) April - June 2021.
 The material in this repositor is influenced by this course, but as we have developed smart contracts, we have drawn inspiration from loads of sources. All these sources and our own experience goes into the site.
 
-The site is a work in progress. The site was created March 2022 and was made publicly available to you in April when the basic content had been created. Please follow the site as new and more advanced resources are added.
+## The site is a work in progress
+It was created March 2022 and was made publicly available to you in April when the basic content had been created. Please follow the site. New and more advanced resources are added.
 
 The objective of the site is not to be a course you follow from Lecture 1 until Lecture 10. Usually beginners will start at the beginning, but when the basics have been learned, you should be able to make use of the remaining site in the order you like. We try to make the topics as self containing as possible. If a topic requires first going trough earlier topics, we list these dependencies in the topic brief.
 
