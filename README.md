@@ -3,17 +3,14 @@
 This repository is dedicated to all things regarding Cardano smart contract development.
 
 ## CENT - a first cohort "Plutus Pioneer"
-Our lead developer graduated with the first cohort of the great course **Plutus Pioneer Program** by Lars Brünjes, Director of Education, IOG (Input Output Global) April - June 2021. You can read more about this in the repository https://github.com/input-output-hk/plutus-pioneer-program
-The material in our repository is influenced by this course and especially the basic topics will be familiar to those of you who have followed it. There are however differences. Where the course have long video presentations, we have instead condensed each topic as much as possible and only dive into one topic at a time. Another difference is that we focus on always trying to make the contracts usable, not only in your own Plutus playground (PAB) but usable on Cardano testnet. 
+Our lead developer graduated with the first cohort of the great course **Plutus Pioneer Program** by IOG (Input Output Global) April - June 2021. You can read more about this in the repository https://github.com/input-output-hk/plutus-pioneer-program
+This repository contains a collection of smart contract related resources created in our own development. The resources are targeted to be reusable components for you to customize to your own needs or to use as basis for your own smart contracts.
 
-As we have developed smart contracts, we have been inspired by many different sources. All these sources and our own experience goes into the site.
 
 ## The site is a work in progress
 It was created March 2022 and was made publicly available to you in April when the basic content had been created. New and more advanced resources will be added to the site, so make sure to come back from time to time.
 
-The objective of the site is not to be a course you follow from Lecture 1 until Lecture 10. Usually beginners will start at the beginning, but when the basics have been learned, you should be able to make use of the remaining site in the order you like. We try to make the topics as self containing as possible. If a topic requires first going trough earlier topics, we list these dependencies in the topic brief.
-
-We want this to be a library of reusable components from which we hope you will find inspiration to develop your own contracts. 
+The objective of the site is not to be a course you follow from Lecture 1 until Lecture X. The components of this site is meant to be as self containing as possible. If a component depends on other components we list these dependencies in the topic brief.
 
 ## If you want to buy a smart contract...
 Reach out to us in any of the channels below and we can develop it for you.
