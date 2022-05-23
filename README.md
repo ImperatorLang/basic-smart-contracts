@@ -12,11 +12,8 @@ It was created March 2022 and was made publicly available to you in April when t
 
 The objective of the site is not to be a course you follow from Lecture 1 until Lecture X. The components of this site is meant to be as self containing as possible. If a component depends on other components we list these dependencies in the topic brief.
 
-## If you want to buy a smart contract...
+## If you want a smart contract...
 Reach out to us in any of the channels below and we can develop it for you.
 - E-mail: **developer'at'cent.stakepoolcentral.com** 
 - Twitter: **@centstakepool**
 - Telegram: **@centstakepool** 
-
-## Support us
-If you like the material on this site and want to support our efforts to keep it up to date and provide new material, please consider delegating to our Cardano stake pool **CENT**, or donate some ADA to our address addr1xxxxxxxxxxx. No amount is too small. Thank you!
