@@ -1,4 +1,4 @@
-# Smart contracts
+# Basic smart contracts
 
 This repository is dedicated to all things regarding Cardano smart contract development.
 
