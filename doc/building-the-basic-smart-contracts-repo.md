@@ -1,7 +1,7 @@
 # Building the smart contracts repository
 
 ## Prerequisites
-Plutus and nix-shell installed on your computer according to [instructions](doc/installing-plutus.md) 
+Plutus and nix-shell installed on your computer according to [instructions](installing-plutus.md) 
 
 ## Clone this repository
 ```bash
