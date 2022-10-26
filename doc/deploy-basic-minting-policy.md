@@ -1,5 +1,5 @@
 # Basic Minting Policy
-The BasicMintingPolicy contract only accepts minting of tokens for transactions signed by a specific owner wallet. The minting / burning is free and as many tokens as one wants can be minted
+The `BasicMintingPolicy` contract only accepts minting of tokens for transactions signed by a specific owner wallet. The minting / burning is free and as many tokens as one wants can be minted
 
 ## Prerequisites
 - Plutus and nix-shell installed on your computer according to [instructions](installing-plutus.md)
@@ -46,7 +46,7 @@ Time has come to build your unique minting policy. This is accomplished with the
 This works in the way that the `basic-minting-policy` executable compiles your minting policy using two parameters (following --)
 | Parameter | Description | Example |
 | --- | --- | --- |
-| 1 | filename of save your plutus script | `basic-minting-policy-1-0.plutus` |
+| 1 | filename to save your plutus script as | `basic-minting-policy-1-0.plutus` |
 | 2 | owner wallet payment pub key hash | `d0a2d205e1533a972c9de30622bd1219ee2ab621ba665671038db79c` | 
 
 ```
