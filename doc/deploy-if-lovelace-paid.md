@@ -24,7 +24,7 @@ cardano-cli 1.35.3 - linux-x86_64 - ghc-8.10
 git rev 950c4e222086fed5ca53564e642434ce9307b0b9
 ```
 
-## Configure mining policy
+## Configure minting policy
 Usage of the minting policy will require a minimum amount / fee to be paid to a specific wallet. We will now configure the minting policy so it knows which wallet to check and the minimum amount required for minting. 
 
 ### Generate payment address for owner
@@ -46,24 +46,22 @@ Time has come to build your unique minting policy. This is accomplished with the
 This works in the way that the `mint-if-paid-to` executable compiles your minting policy using three parameters (following --)
 | Parameter | Description | Example |
 | --- | --- | --- |
-| 1 | filename to save your plutus script as | `plutus-scripts/mint-if-paid-to-0-1.plutus` |
+| 1 | filename to save your plutus script as | `plutus-scripts/mint-if-paid-to-0-2.plutus` |
 | 2 | wallet pub key hash | `df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c` | 
 | 3 | required amount of lovelaces required to mint | `2000000` |
 
 ```
-[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-paid-to -- plutus-scripts/mint-if-paid-to-0-1.plutus df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c 2000000
+[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-paid-to -- plutus-scripts/mint-if-paid-to-0-2.plutus df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c 2000000
 _______________________________________________
- Policy saved to file          : plutus-scripts/mint-if-paid-to-0-1.plutus
+ Policy saved to file          : plutus-scripts/mint-if-paid-to-0-2.plutus
  addressToPay                  : df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c
  Minimum lovelace required     : 2000000
- Parameter to contract         : ContractParam {addressToPay = 6466306266363733373635636363653031663763623436646132326333396265306263353134333361626638653134326461323163623863, minLovelaceAmount = 2000000}
- addressToPay    (obj type)    : PubKeyHash
+ Parameter to contract         : ContractParam {addressToPay = df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c, minLovelaceAmount = 2000000}
+ addressToPay    (obj type)    : PaymentPubKeyHash
  minLovelaceAmount (obj type)  : Integer
 _______________________________________________
 
 [nix-shell:~/basic-smart-contracts]$ 
-
-
 ```
 The contents of your minting policy plutus script file should now look similar to
 ```
@@ -78,10 +76,9 @@ The contents of your minting policy plutus script file should now look similar t
 The final step is to generate the minting policy script address. This address is used when you interact with it
 
 ```
-~/smart-contracts  : cardano-cli address build --payment-script-file mint-if-paid-to-0-1.plutus $MAGIC --out-file mint-if-paid-to-0-1.addr
-~/smart-contracts  : cat mint-if-paid-to-0-1.addr 
-addr_test1wpy59dgfce89ue9slrlkqgdxaezx480gc6z0wj08jam7m7qmu2fcu
-
+~/ : cardano-cli address build --payment-script-file smart-contracts/mint-if-paid-to-0-2.plutus $MAGIC --out-file smart-contracts/mint-if-paid-to-0-2.addr
+~/ : cat smart-contracts/mint-if-paid-to-0-2.addr 
+addr_test1wq0hmhjc928djzkzu6nlzrkld2a0p3xge9g5358cl9yjstsph7f3f 
 ```
-Once again, the address `addr_test1wpy59dgfce89ue9slrlkqgdxaezx480gc6z0wj08jam7m7qmu2fcu` is only an example of how your address should look.
+Once again, the address `addr_test1wq0hmhjc928djzkzu6nlzrkld2a0p3xge9g5358cl9yjstsph7f3f` is only an example of how your address should look.
 You are now ready for interacting with your minting policy
