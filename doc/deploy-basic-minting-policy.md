@@ -24,7 +24,7 @@ cardano-cli 1.35.3 - linux-x86_64 - ghc-8.10
 git rev 950c4e222086fed5ca53564e642434ce9307b0b9
 ```
 
-## Configure mining policy
+## Configure minting policy
 One wallet owns the minting policy. The owner is the only wallet allowed to do minting using the policy. This is how you create the wallet and getting hold of the payment pub key hash needed for configuring the minting policy
 
 ### Generate payment address for owner
