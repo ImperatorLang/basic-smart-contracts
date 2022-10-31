@@ -13,8 +13,8 @@ Instructions are the same for all of the Cardano Blockchains, but you need to ch
 Use one of the following Network Magics according to which network you want to work
 | Network | Magic | Command |
 | --- | --- | --- |
-| Preview | `--testnet-magic 1` | `export MAGIC="--testnet-magic 1"` |
-| Pre-Production | `--testnet-magic 2` | `export MAGIC="--testnet-magic 2"` |
+| Preview | `--testnet-magic 2` | `export MAGIC="--testnet-magic 2"` |
+| Pre-Production | `--testnet-magic 1` | `export MAGIC="--testnet-magic 1"` |
 | Mainnet | `--mainnet` | `export MAGIC="--mainnet"` |
 
 The Cardano CLI commands are compatible with version 1.35.3
