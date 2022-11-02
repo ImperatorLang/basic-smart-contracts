@@ -9,7 +9,7 @@ The `IfLovelacePaidMintingPolicy` only accepts minting of tokens for transaction
 ## Brief
 The following instructions are for deploying the built IfLovelacePaidMintingPolicy to Cardano blockchain.
 Instructions are the same for all of the Cardano Blockchains, but you need to change the
-"Network Magic" parameter according to your environment
+"Network Magic" parameter according to your environment.
 Use one of the following Network Magics according to which network you want to work
 | Network | Magic | Command |
 | --- | --- | --- |
@@ -17,7 +17,7 @@ Use one of the following Network Magics according to which network you want to w
 | Pre-Production | `--testnet-magic 1` | `export MAGIC="--testnet-magic 1"` |
 | Mainnet | `--mainnet` | `export MAGIC="--mainnet"` |
 
-The Cardano CLI commands are compatible with version 1.35.3
+The Cardano CLI commands were run using version 1.35.3
 ```
 ~  : cardano-cli --version
 cardano-cli 1.35.3 - linux-x86_64 - ghc-8.10
@@ -38,8 +38,8 @@ Usage of the minting policy will require a minimum amount / fee to be paid to a 
 ~/wallets  : cardano-cli address key-hash --payment-verification-key-file mp-pay-to-wallet.vkey --out-file mp-pay-to-wallet.pkh
 ```
 
-The contents of your mp-pay-to-wallet.pkh should now be a 64 byte hex, similar to but not identical to `df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c`. 
-All wallets have their own unique key hash
+The contents of your mp-pay-to-wallet.pkh should now be a 56 byte hex, similar to but not identical to `df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c`. 
+All wallets have their own unique public key hash
 
 ## Serialize minting policy script
 Time has come to build your unique minting policy. This is accomplished with the following command.
@@ -80,5 +80,5 @@ The final step is to generate the minting policy script address. This address is
 ~/ : cat smart-contracts/mint-if-paid-to-0-2.addr 
 addr_test1wq0hmhjc928djzkzu6nlzrkld2a0p3xge9g5358cl9yjstsph7f3f 
 ```
-Once again, the address `addr_test1wq0hmhjc928djzkzu6nlzrkld2a0p3xge9g5358cl9yjstsph7f3f` is only an example of how your address should look.
+As with the public key hash, the address `addr_test1wq0hmhjc928djzkzu6nlzrkld2a0p3xge9g5358cl9yjstsph7f3f` is only an example of how your address should look.
 You are now ready for interacting with your minting policy
