@@ -9,7 +9,7 @@ The `BasicMintingPolicy` contract only accepts minting of tokens for transaction
 ## Brief
 The following instructions are for deploying the built BasicMintingPolicy to Cardano blockchain.
 Instructions are the same for all of the Cardano Blockchains, but you need to change the
-"Network Magic" parameter according to your environment
+"Network Magic" parameter according to your environment.
 Use one of the following Network Magics according to which network you want to work
 | Network | Magic | Command |
 | --- | --- | --- |
@@ -38,8 +38,8 @@ One wallet owns the minting policy. The owner is the only wallet allowed to do m
 ~/wallets  : cardano-cli address key-hash --payment-verification-key-file owner-wallet.vkey --out-file owner-wallet.pkh
 ```
 
-The contents of your owner-wallet.pkh should now be a 64 byte hex, similar to but not identical to `d0a2d205e1533a972c9de30622bd1219ee2ab621ba665671038db79c`. 
-All wallets have their own unique key hash
+The contents of your owner-wallet.pkh should now be a 56 byte hex, similar to but not identical to `d0a2d205e1533a972c9de30622bd1219ee2ab621ba665671038db79c`. 
+All wallets have their own unique public key hash
 
 ## Serialize minting policy script
 Time has come to build your unique minting policy. This is accomplished with the following command.
@@ -77,5 +77,5 @@ The final step is to generate the minting policy script address. This address is
 addr_test1wpy7kj6gnuew2rw4v665md9x76r6vsu2fyzd7l3a9hvgl4sjqr8nu
 ~/smart-contracts  : 
 ```
-Once again, the address `addr_test1wpy7kj6gnuew2rw4v665md9x76r6vsu2fyzd7l3a9hvgl4sjqr8nu` is only an example of how your address should look.
+As with the public key hash, the address `addr_test1wpy7kj6gnuew2rw4v665md9x76r6vsu2fyzd7l3a9hvgl4sjqr8nu` is only an example of how your address should look.
 You are now ready for interacting with your minting policy
