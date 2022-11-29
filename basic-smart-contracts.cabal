@@ -12,6 +12,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     BasicMintingPolicy
                      , IfLovelacePaidMintingPolicy
+                     , IfTokenPaidMintingPolicy
                      , Utils
   build-depends:       aeson
                      , base ^>=4.14.1.0
@@ -49,11 +50,21 @@ executable basic-minting-policy
                      , basic-smart-contracts
                      , plutus-ledger
 
-executable mint-if-paid-to
-  main-is: mint-if-paid-to.hs
+executable mint-if-ada-paid-to
+  main-is: mint-if-ada-paid-to.hs
   hs-source-dirs:      app
   ghc-options:         -Wall
   build-depends:       base ^>= 4.14.1.0
                      , basic-smart-contracts
                      , plutus-ledger
                      , plutus-tx
+
+executable mint-if-token-paid-to
+  main-is: mint-if-token-paid-to.hs
+  hs-source-dirs:      app
+  ghc-options:         -Wall
+  build-depends:       base ^>= 4.14.1.0
+                     , basic-smart-contracts
+                     , plutus-ledger
+                     , plutus-tx
+
