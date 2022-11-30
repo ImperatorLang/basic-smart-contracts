@@ -1,6 +1,9 @@
 # If Lovelace Paid Minting Policy
 The `IfLovelacePaidMintingPolicy` only accepts minting of tokens for transactions that pay an amount of lovelaces to a defined wallet.
 
+Warning: A future version will also check that the amount is enough according to the number of tokens minted. Today the amount is a simple “minimum fee” to allow minting. There is no limitation on the number of tokens minted, so users can request as many as they want.
+A near future update to this contract will enforce the minumum amount as the fee for a specific amount of tokens minted. 
+
 ## Prerequisites
 - Plutus and nix-shell installed on your computer according to [instructions](installing-plutus.md)
 - Local copy of this repository, built according to [building instructions](building-the-basic-smart-contracts-repo.md)
@@ -43,7 +46,7 @@ All wallets have their own unique public key hash
 
 ## Serialize minting policy script
 Time has come to build your unique minting policy. This is accomplished with the following command.
-This works in the way that the `mint-if-paid-to` executable compiles your minting policy using three parameters (following --)
+This works in the way that the `mint-if-ada-paid-to` executable compiles your minting policy using three parameters (following --)
 | Parameter | Description | Example |
 | --- | --- | --- |
 | 1 | filename to save your plutus script as | `plutus-scripts/mint-if-paid-to-0-2.plutus` |
@@ -51,7 +54,7 @@ This works in the way that the `mint-if-paid-to` executable compiles your mintin
 | 3 | required amount of lovelaces required to mint | `2000000` |
 
 ```
-[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-paid-to -- plutus-scripts/mint-if-paid-to-0-2.plutus df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c 2000000
+[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-ada-paid-to -- plutus-scripts/mint-if-paid-to-0-2.plutus df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c 2000000
 _______________________________________________
  Policy saved to file          : plutus-scripts/mint-if-paid-to-0-2.plutus
  addressToPay                  : df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c

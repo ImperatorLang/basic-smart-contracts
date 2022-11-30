@@ -37,8 +37,8 @@ PlutusTx.makeLift ''ContractParam
 -- a pragma for the mkPolicy to make it possible to use it as inlinable parameter in the compile function
 {-# INLINABLE mkPolicy #-}
 
---          Parameter        Redeemer   Context         Result
-mkPolicy :: ContractParam -> ()      -> ScriptContext-> Bool
+--          Parameter        Redeemer   Context          Result
+mkPolicy :: ContractParam -> ()      -> ScriptContext -> Bool
 mkPolicy contractParam () ctx = traceIfFalse "Required minimum amount of tokens not paid to address" requiredAmountPaid
     where
         info :: TxInfo
