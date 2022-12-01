@@ -1,6 +1,5 @@
 {-# LANGUAGE DataKinds             #-}
 {-# LANGUAGE FlexibleContexts      #-}
-{-# LANGUAGE NoImplicitPrelude     #-}
 {-# LANGUAGE ScopedTypeVariables   #-}
 {-# LANGUAGE TemplateHaskell       #-}
 {-# LANGUAGE TypeApplications      #-}
@@ -25,10 +24,11 @@ import           Prelude                (Show)
 
 -- Contract parameter object
 data ContractParam = ContractParam
-    { addressToPay :: PaymentPubKeyHash
-    , acceptedTokenPolicy :: CurrencySymbol
-    , acceptedTokenName :: TokenName
-    , minTokenAmount :: Integer
+    { addressToReceivePayment :: PaymentPubKeyHash
+    , acceptedTokenPolicyAsPayment :: CurrencySymbol
+    , acceptedTokenNameAsPayment :: TokenName
+    , numTokensAsPaymentForEachMintedToken :: Integer
+    , acceptedTokenNameToMint :: TokenName
     } deriving Show
 
 -- Tell compiler the ContractParam is liftable
@@ -39,19 +39,29 @@ PlutusTx.makeLift ''ContractParam
 
 --          Parameter        Redeemer   Context          Result
 mkPolicy :: ContractParam -> ()      -> ScriptContext -> Bool
-mkPolicy contractParam () ctx = traceIfFalse "Required minimum amount of tokens not paid to address" requiredAmountPaid
+mkPolicy contractParam () ctx = traceIfFalse "At least one token with the correct name must be minted" minOneCorrectTokenMinted &&
+                                traceIfFalse "Payment too low to mint requested number of tokens" checkMintedTypeAndAmount
     where
         info :: TxInfo
         info = scriptContextTxInfo ctx 
 
         payment :: Value
-        payment = valuePaidTo info (unPaymentPubKeyHash $ addressToPay contractParam)
+        payment = valuePaidTo info (unPaymentPubKeyHash $ addressToReceivePayment contractParam)
 
-        requiredAmountPaid :: Bool
-        requiredAmountPaid = let cs        = acceptedTokenPolicy contractParam
-                                 tn        = acceptedTokenName contractParam
-                                 minAmount = minTokenAmount contractParam
-                             in  (valueOf payment cs tn) >= minAmount
+        acceptedTokensPaid :: Integer
+        acceptedTokensPaid = let cs     = acceptedTokenPolicyAsPayment contractParam
+                                 tn     = acceptedTokenNameAsPayment contractParam
+                             in  (valueOf payment cs tn)
+
+        minOneCorrectTokenMinted :: Bool
+        minOneCorrectTokenMinted = case flattenValue (txInfoMint info) of
+          [(_, tn', amt)]     -> tn' == (acceptedTokenNameToMint contractParam) && amt >= 1
+          _                   -> False
+
+        checkMintedTypeAndAmount :: Bool
+        checkMintedTypeAndAmount = case flattenValue (txInfoMint info) of
+          [(_, _, amt)] -> acceptedTokensPaid >= amt * (numTokensAsPaymentForEachMintedToken contractParam)
+          _             -> False
 
 -- compile policy into Plutus script
 policy :: ContractParam -> Scripts.MintingPolicy

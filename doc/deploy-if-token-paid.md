@@ -4,6 +4,7 @@ Use case for this minting policy, is to require a payment in stable coins like *
 
 Warning: A future version will also check that the amount is enough according to the number of tokens minted. Today the amount is a simple “minimum fee” to allow minting. There is no limitation on the number of tokens minted, so users can request as many as they want.
 A near future update to this contract will enforce the minumum amount as the fee for a specific amount of tokens minted. 
+
 Examples: 
 - 1 Djed = 1 minted token, 10 Djed = 10 minted tokens
 - 10 USDA = 2 minted tokens, 20 USDA = 4 minted tokens
@@ -61,7 +62,7 @@ To get hold of your preferred tokens policy id, please refer to the website of t
 | Djed | IOG and COTI | https://djed.xyz/ | Testnet, Mainnet January 2023 |
 
 
-When you have determined the policy id to use, you can use these when building your contract as follows
+When you have determined the policy id to use, you can use this as a parameter when building your contract as follows
 | Parameter | Description | Example |
 | --- | --- | --- |
 | 1 | filename to save your plutus script as | `plutus-scripts/mint-if-nok-paid-to-0-1.plutus` |
