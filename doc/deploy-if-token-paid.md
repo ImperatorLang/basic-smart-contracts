@@ -1,6 +1,6 @@
 # If Token Paid Minting Policy
 The `IfTokenPaidMintingPolicy` checks if a certain amount of a specific token is paid to a particular wallet before allowing to mint any tokens. 
-The contract also checks that the amount is enough according to the number of tokens minted. The provided fee is the cost for each token to mint, so if the transaction mints 3 tokens, the cost is also 3 times the fee
+The contract also checks that the amount is enough according to the number of tokens minted. The provided fee is the cost for each token to mint, so if the transaction mints 3 tokens, the cost is also 3 times the fee.
 A use case for this minting policy, is to require a payment in stable coins like **Djed** or **USDA** to mint the requested amount of tokens
 
 ## Prerequisites
@@ -97,7 +97,7 @@ The contents of your minting policy plutus script file should now look similar t
     "cborHex": "590b89590b860100<shortened for readability>bd0048848cc00400c0088005"
 }
 ```
-To be able to mint the Membership tokens, you will need to calculate the policy id of the finished minting policy. This is done with the following command
+To be able to mint the tokens, you will need to calculate the policy id of the finished minting policy. This is done with the following command. This id will be used when interacting with the contract later.
 ```
 ~/ : cardano-cli transaction policyid --script-file smart-contracts/mint-if-djed-paid-to-address-1-0.plutus
 2b7db20d5d5cc627bc32a4d14f54b86e4632c58414180421edc9426b

@@ -1,8 +1,7 @@
 # If Lovelace Paid Minting Policy
-The `IfLovelacePaidMintingPolicy` only accepts minting of tokens for transactions that pay an amount of lovelaces to a defined wallet.
-
-Warning: A future version will also check that the amount is enough according to the number of tokens minted. Today the amount is a simple “minimum fee” to allow minting. There is no limitation on the number of tokens minted, so users can request as many as they want.
-A near future update to this contract will enforce the minumum amount as the fee for a specific amount of tokens minted. 
+The `IfLovelacePaidMintingPolicy` checks if a certain amount of lovelace is paid to a particular wallet before allowing to mint any tokens. 
+The contract also checks that the amount is enough according to the number of tokens minted. The provided fee is the cost for each token to mint, so if the transaction mints 3 tokens, 
+the cost is also 3 times the fee.
 
 ## Prerequisites
 - Plutus and nix-shell installed on your computer according to [instructions](installing-plutus.md)
@@ -28,7 +27,7 @@ git rev 950c4e222086fed5ca53564e642434ce9307b0b9
 ```
 
 ## Configure minting policy
-Usage of the minting policy will require a minimum amount / fee to be paid to a specific wallet. We will now configure the minting policy so it knows which wallet to check and the minimum amount required for minting. 
+Usage of the minting policy will require a fee to be paid to a specific wallet for each of the tokens minted. We will now configure the minting policy so it knows which wallet to check and the amount required for minting. 
 
 ### Generate payment address for owner
 ```
@@ -46,22 +45,23 @@ All wallets have their own unique public key hash
 
 ## Serialize minting policy script
 Time has come to build your unique minting policy. This is accomplished with the following command.
-This works in the way that the `mint-if-ada-paid-to` executable compiles your minting policy using three parameters (following --)
+This works in the way that the `mint-if-ada-paid-to` executable compiles your minting policy using four parameters (following --)
 | Parameter | Description | Example |
 | --- | --- | --- |
 | 1 | filename to save your plutus script as | `plutus-scripts/mint-if-paid-to-0-2.plutus` |
 | 2 | wallet pub key hash | `df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c` | 
-| 3 | required amount of lovelaces required to mint | `2000000` |
-
+| 3 | amount of lovelaces per token minted | `2000000` |
+| 4 | token name allowed to mint | `Membership` |
 ```
-[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-ada-paid-to -- plutus-scripts/mint-if-paid-to-0-2.plutus df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c 2000000
+[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-ada-paid-to -- plutus-scripts/mint-if-ada-paid-to-address-0-3.plutus 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2 2000000 Membership
 _______________________________________________
- Policy saved to file          : plutus-scripts/mint-if-paid-to-0-2.plutus
- addressToPay                  : df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c
- Minimum lovelace required     : 2000000
- Parameter to contract         : ContractParam {addressToPay = df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c, minLovelaceAmount = 2000000}
- addressToPay    (obj type)    : PaymentPubKeyHash
- minLovelaceAmount (obj type)  : Integer
+ Policy saved to file          : plutus-scripts/mint-if-ada-paid-to-address-0-3.plutus
+ addressToReceivePayment       : 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2
+ lovelace per token            : 2000000
+ Parameter to contract         : IfLovelaceContractParam {addressToReceivePayment = 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2, lovelacePerToken = 2000000, acceptedTokenNameToMint = "Membership"}
+ address (obj type)            : PaymentPubKeyHash
+ lovelace per token (obj type) : Integer
+ token to mint (obj type)      : TokenName
 _______________________________________________
 
 [nix-shell:~/basic-smart-contracts]$ 
@@ -75,13 +75,10 @@ The contents of your minting policy plutus script file should now look similar t
 }
 ```
 
-## Generating minting policy script address
-The final step is to generate the minting policy script address. This address is used when you interact with it
-
+## Determining minting policy id
+To be able to mint the tokens, you will need to calculate the policy id of the finished minting policy. This is done with the following command. This id will be used when interacting with the contract later.
 ```
-~/ : cardano-cli address build --payment-script-file smart-contracts/mint-if-paid-to-0-2.plutus $MAGIC --out-file smart-contracts/mint-if-paid-to-0-2.addr
-~/ : cat smart-contracts/mint-if-paid-to-0-2.addr 
-addr_test1wq0hmhjc928djzkzu6nlzrkld2a0p3xge9g5358cl9yjstsph7f3f 
+~/ : cardano-cli transaction policyid --script-file smart-contracts/mint-if-ada-paid-to-address-0-3.plutus
+92b11c9351cfe054284b3757921f157745b82b602dc6805434b31d30
+~/ : 
 ```
-As with the public key hash, the address `addr_test1wq0hmhjc928djzkzu6nlzrkld2a0p3xge9g5358cl9yjstsph7f3f` is only an example of how your address should look.
-You are now ready for interacting with your minting policy

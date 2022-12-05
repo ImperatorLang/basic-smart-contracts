@@ -25,37 +25,50 @@ import           Prelude                (Show)
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Contract parameter object
-data ContractParam = ContractParam
-    { addressToPay :: PaymentPubKeyHash
-    , minLovelaceAmount :: Integer
+data IfLovelaceContractParam = IfLovelaceContractParam
+    { addressToReceivePayment :: PaymentPubKeyHash
+    , lovelacePerToken :: Integer
+    , acceptedTokenNameToMint :: TokenName
     } deriving Show
 
--- Tell compiler the ContractParam is liftable
-PlutusTx.makeLift ''ContractParam
+-- Tell compiler the IfLovelaceContractParam is liftable
+PlutusTx.makeLift ''IfLovelaceContractParam
 
 -- a pragma for the mkPolicy to make it possible to use it as inlinable parameter in the compile function
 {-# INLINABLE mkPolicy #-}
 
---          Parameter            Redeemer   Context         Result
-mkPolicy :: ContractParam     -> ()      -> ScriptContext-> Bool
-mkPolicy contractParam () ctx = traceIfFalse "Minimum required lovelace not paid to address" requiredAmountPaid
+--          Parameter                  Redeemer   Context         Result
+mkPolicy :: IfLovelaceContractParam -> ()      -> ScriptContext-> Bool
+mkPolicy contractParam () ctx = traceIfFalse "At least one token with the correct name must be minted" minOneCorrectTokenMinted &&
+                                traceIfFalse "Payment too low to mint requested number of tokens" checkMintedTypeAndAmount
     where
         info :: TxInfo
         info = scriptContextTxInfo ctx 
 
-        requiredAmountPaid :: Bool
-        requiredAmountPaid = (valueOf payment adaSymbol adaToken) >= minLovelaceAmount contractParam
-
         payment :: Value
-        payment = valuePaidTo info (unPaymentPubKeyHash $ addressToPay contractParam)
+        payment = valuePaidTo info (unPaymentPubKeyHash $ addressToReceivePayment contractParam)
+
+        lovelacePaid :: Integer
+        lovelacePaid = valueOf payment adaSymbol adaToken
+
+        minOneCorrectTokenMinted :: Bool
+        minOneCorrectTokenMinted = case flattenValue (txInfoMint info) of
+          [(_, tn', amt)]     -> tn' == (acceptedTokenNameToMint contractParam) && amt >= 1
+          _                   -> False
+
+        checkMintedTypeAndAmount :: Bool
+        checkMintedTypeAndAmount = case flattenValue (txInfoMint info) of
+          [(_, _, amt)] -> lovelacePaid >= amt * (lovelacePerToken contractParam)
+          _             -> False
+
 
 -- compile policy into Plutus script
-policy :: ContractParam -> Scripts.MintingPolicy
+policy :: IfLovelaceContractParam -> Scripts.MintingPolicy
 policy contractParam = mkMintingPolicyScript $
     $$(PlutusTx.compile [|| Scripts.wrapMintingPolicy . mkPolicy ||])
     `PlutusTx.applyCode`
     PlutusTx.liftCode contractParam
 
 -- get currency symbol for policy
-curSymbol :: ContractParam -> CurrencySymbol
+curSymbol :: IfLovelaceContractParam -> CurrencySymbol
 curSymbol = scriptCurrencySymbol . policy
