@@ -15,6 +15,6 @@ If you do not have a running environment you can use the following instructions 
 ## The contracts
 | Contract | Building instructions |
 | --- | --- |
-| [Basic Minting Policy](src/BasicMintingPolicy.hs) | [Instructions](doc/deploy-basic-minting-policy.md) |
+| [Owner Can Mint Policy](src/OwnerCanMintPolicy.hs) | [Instructions](doc/deploy-basic-minting-policy.md) |
 | [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) |
 | [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) |

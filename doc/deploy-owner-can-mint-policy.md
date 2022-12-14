@@ -1,5 +1,5 @@
 # Basic Minting Policy
-The `BasicMintingPolicy` contract only accepts minting of tokens for transactions signed by a specific owner wallet. The minting / burning is free and as many tokens as one wants can be minted
+The `OwnerCanMintPolicy` contract only accepts minting of tokens for transactions signed by a specific owner wallet. The minting / burning is free and as many tokens as one wants can be minted
 
 ## Prerequisites
 - Plutus and nix-shell installed on your computer according to [instructions](installing-plutus.md)
@@ -7,7 +7,7 @@ The `BasicMintingPolicy` contract only accepts minting of tokens for transaction
 - Cardano node and cli setup according to instructions on [cardano-node repository](https://github.com/input-output-hk/cardano-node)
 
 ## Brief
-The following instructions are for deploying the built BasicMintingPolicy to Cardano blockchain.
+The following instructions are for deploying the built OwnerCanMintPolicy to Cardano blockchain.
 Instructions are the same for all of the Cardano Blockchains, but you need to change the
 "Network Magic" parameter according to your environment.
 Use one of the following Network Magics according to which network you want to work
@@ -38,7 +38,7 @@ One wallet owns the minting policy. The owner is the only wallet allowed to do m
 ~/wallets  : cardano-cli address key-hash --payment-verification-key-file owner-wallet.vkey --out-file owner-wallet.pkh
 ```
 
-The contents of your owner-wallet.pkh should now be a 56 byte hex, similar to but not identical to `d0a2d205e1533a972c9de30622bd1219ee2ab621ba665671038db79c`. 
+The contents of your owner-wallet.pkh should now be a 56 byte hex, similar to but not identical to `3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c`. 
 All wallets have their own unique public key hash
 
 ## Serialize minting policy script
@@ -46,14 +46,14 @@ Time has come to build your unique minting policy. This is accomplished with the
 This works in the way that the `basic-minting-policy` executable compiles your minting policy using two parameters (following --)
 | Parameter | Description | Example |
 | --- | --- | --- |
-| 1 | filename to save your plutus script as | `basic-minting-policy-1-0.plutus` |
-| 2 | owner wallet payment pub key hash | `d0a2d205e1533a972c9de30622bd1219ee2ab621ba665671038db79c` | 
+| 1 | filename to save your plutus script as | `plutus-scripts/owner-can-mint-policy-1-0.plutus` |
+| 2 | owner wallet payment pub key hash | `3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c` | 
 
 ```
-[nix-shell:~/basic-smart-contracts]$ cabal exec basic-minting-policy -- basic-minting-policy-1-0.plutus d0a2d205e1533a972c9de30622bd1219ee2ab621ba665671038db79c
+[nix-shell:~/basic-smart-contracts]$ cabal exec owner-can-mint-policy -- plutus-scripts/owner-can-mint-policy-1-0.plutus 3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c
 _______________________________________________
- Policy saved to file       : basic-minting-policy-1-0.plutus
- PubKeyHash of owner wallet : d0a2d205e1533a972c9de30622bd1219ee2ab621ba665671038db79c
+ Policy saved to file       : plutus-scripts/owner-can-mint-policy-1-0.plutus
+ PubKeyHash of owner wallet : 3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c
  policyOwner    (obj type)  : PaymentPubKeyHash
 _______________________________________________
 
@@ -64,7 +64,7 @@ The contents of your minting policy plutus script file should now look similar t
 {
     "type": "PlutusScriptV1",
     "description": "",
-    "cborHex": "5908a259089f010<shortened for readability>1038db79c0001"
+    "cborHex": "5908a259089f010<shortened for readability>311879a28dac5c0001"
 }
 ```
 
@@ -72,10 +72,10 @@ The contents of your minting policy plutus script file should now look similar t
 The final step is to generate the minting policy script address. This address is used when you interact with it
 
 ```
-~/smart-contracts  : cardano-cli address build --payment-script-file basic-minting-policy-1-0.plutus $MAGIC --out-file basic-minting-policy-1-0.addr
-~/smart-contracts  : cat basic-minting-policy-1-0.addr 
-addr_test1wpy7kj6gnuew2rw4v665md9x76r6vsu2fyzd7l3a9hvgl4sjqr8nu
+~/smart-contracts  : cardano-cli address build --payment-script-file owner-can-mint-policy-1-0.plutus $MAGIC --out-file owner-can-mint-policy-1-0.addr
+~/smart-contracts  : cat owner-can-mint-policy-1-0.addr 
+addr_test1wqpag056z5ag3mkmge3nmxkgmwt38llpz27w7dn3gc04yvq2c9a70
 ~/smart-contracts  : 
 ```
-As with the public key hash, the address `addr_test1wpy7kj6gnuew2rw4v665md9x76r6vsu2fyzd7l3a9hvgl4sjqr8nu` is only an example of how your address should look.
+As with the public key hash, the address `addr_test1wqpag056z5ag3mkmge3nmxkgmwt38llpz27w7dn3gc04yvq2c9a70` is only an example of how your address should look.
 You are now ready for interacting with your minting policy

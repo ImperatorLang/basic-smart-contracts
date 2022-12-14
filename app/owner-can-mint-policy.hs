@@ -8,7 +8,7 @@ import Control.Exception    (throwIO)
 
 import Data.String          (IsString (..))
 import System.Environment   (getArgs)
-import BasicMintingPolicy (policy)
+import OwnerCanMintPolicy (policy)
 import Utils         (writeMintingPolicy)
 import qualified Ledger
 -- utility library to be able to get object types

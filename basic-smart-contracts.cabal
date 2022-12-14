@@ -10,7 +10,7 @@ License-files:      LICENSE
 
 library
   hs-source-dirs:      src
-  exposed-modules:     BasicMintingPolicy
+  exposed-modules:     OwnerCanMintPolicy
                      , IfLovelacePaidMintingPolicy
                      , IfTokenPaidMintingPolicy
                      , Utils
@@ -42,8 +42,8 @@ executable token-name
   build-depends:       base ^>= 4.14.1.0
                      , basic-smart-contracts
 
-executable basic-minting-policy
-  main-is: basic-minting-policy.hs
+executable owner-can-mint-policy
+  main-is: owner-can-mint-policy.hs
   hs-source-dirs:      app
   ghc-options:         -Wall
   build-depends:       base ^>= 4.14.1.0

@@ -11,7 +11,7 @@
 {-# LANGUAGE OverloadedStrings   #-}
 
 
-module BasicMintingPolicy where
+module OwnerCanMintPolicy where
 
 import qualified PlutusTx
 import           PlutusTx.Prelude       hiding (Semigroup(..), unless)
