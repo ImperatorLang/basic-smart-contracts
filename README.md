@@ -13,8 +13,8 @@ If you do not have a running environment you can use the following instructions 
 - [Clone and build this repository](doc/building-the-basic-smart-contracts-repo.md)
 
 ## The contracts
-| Contract | Building instructions |
-| --- | --- |
-| [Owner Can Mint Policy](src/OwnerCanMintPolicy.hs) | [Instructions](doc/deploy-owner-can-mint-policy.md) |
-| [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) |
-| [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) |
+| Contract | Building instructions | Testing |
+| --- | --- | --- |
+| [Owner Can Mint Policy](src/OwnerCanMintPolicy.hs) | [Instructions](doc/deploy-owner-can-mint-policy.md) | [using CLI](doc/testing-cli-owner-can-mint.md) | 
+| [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) | --- |
+| [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) | --- |
