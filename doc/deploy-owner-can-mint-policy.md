@@ -1,4 +1,4 @@
-# Basic Minting Policy
+# Owner Can Mint Policy
 The `OwnerCanMintPolicy` contract only accepts minting of tokens for transactions signed by a specific owner wallet. The minting / burning is free and as many tokens as one wants can be minted
 
 ## Prerequisites
