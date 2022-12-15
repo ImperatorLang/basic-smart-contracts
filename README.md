@@ -21,12 +21,17 @@ If you do not have a running environment you can use the following instructions 
 | [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) | |
 | [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) | |
 
-## How to contact CENT
+## How to contact CENT 
 We would love to hear from you. These are our socials.
-| Platform | |
+
+| Platform | <img width=50 height=50 src="https://cent.stakepoolcentral.com/resources/SPC.png"> |
 | --- | --- |
 | Telegram | @CentStakePool |
 | Twitter | [@CentStakePool](https://twitter.com/CentStakePool) |
 | Discord | CENT#6930 |
 | Email | developer@cent.stakepoolcentral.com |
 | Website | https://cent.stakepoolcentral.com |
+
+
+
+
