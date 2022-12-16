@@ -9,8 +9,8 @@ The contracts themselves are extracts we have picked from our own development an
 We plan to continuously publish new smart contracts, so make sure to watch this repository to be notified.
 
 ## Getting started
-The supplied code can be used in your existing development setup if you already have one.
-If you do not have a running environment you can use the following instructions to set it up
+The supplied code can be used in your existing development / production environment if you already have one.
+If you do not have a running environment you can use the following instructions to set one up
 - [Install Plutus](doc/installing-plutus.md)
 - [Clone and build this repository](doc/building-the-basic-smart-contracts-repo.md)
 
@@ -18,11 +18,11 @@ If you do not have a running environment you can use the following instructions 
 | Contract | Building instructions | Testing |
 | --- | --- | --- |
 | [Owner Can Mint Policy](src/OwnerCanMintPolicy.hs) | [Instructions](doc/deploy-owner-can-mint-policy.md) | [using CLI](doc/testing-cli-owner-can-mint.md) | 
-| [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) | |
+| [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) | [using CLI](doc/testing-cli-if-lovelace-paid.md)|
 | [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) | |
 
 ## How to contact CENT 
-We would love to hear from you. These are our socials.
+We would love to hear from you. Suggestions for new contracts you see missing, or if you simply need help building your contract we can do it for you at a very affordable cost.
 
 | Platform | <img width=50 height=50 src="https://cent.stakepoolcentral.com/resources/SPC.png"> |
 | --- | --- |

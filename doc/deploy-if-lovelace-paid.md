@@ -19,28 +19,29 @@ Use one of the following Network Magics according to which network you want to w
 | Pre-Production | `--testnet-magic 1` | `export MAGIC="--testnet-magic 1"` |
 | Mainnet | `--mainnet` | `export MAGIC="--mainnet"` |
 
-The Cardano CLI commands were run using version 1.35.3
+The Cardano CLI commands were run using version 1.35.4
 ```
 ~  : cardano-cli --version
-cardano-cli 1.35.3 - linux-x86_64 - ghc-8.10
-git rev 950c4e222086fed5ca53564e642434ce9307b0b9
+cardano-cli 1.35.4 - linux-x86_64 - ghc-8.10
+git rev ebc7be471b30e5931b35f9bbc236d21c375b91bb
 ```
 
 ## Configure minting policy
 Usage of the minting policy will require a fee to be paid to a specific wallet for each of the tokens minted. We will now configure the minting policy so it knows which wallet to check and the amount required for minting. 
 
 ### Generate payment address for owner
+If you already have an address, you can skip this section
 ```
-~/wallets  : cardano-cli address key-gen --normal-key --verification-key-file mp-pay-to-wallet.vkey --signing-key-file mp-pay-to-wallet.skey
-~/wallets  : cardano-cli address build --payment-verification-key-file mp-pay-to-wallet.vkey $MAGIC --out-file mp-pay-to-wallet.addr
+~/wallets  : cardano-cli address key-gen --normal-key --verification-key-file owner-wallet.vkey --signing-key-file owner-wallet.skey
+~/wallets  : cardano-cli address build --payment-verification-key-file owner-wallet.vkey $MAGIC --out-file owner-wallet.addr
 ```
 
 ### Fetch Payment pub key hash for address
 ```
-~/wallets  : cardano-cli address key-hash --payment-verification-key-file mp-pay-to-wallet.vkey --out-file mp-pay-to-wallet.pkh
+~/wallets  : cardano-cli address key-hash --payment-verification-key-file owner-wallet.vkey --out-file owner-wallet.pkh
 ```
 
-The contents of your mp-pay-to-wallet.pkh should now be a 56 byte hex, similar to but not identical to `df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c`. 
+The contents of your owner-wallet.pkh should now be a 56 byte hex, similar to but not identical to `3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c`. 
 All wallets have their own unique public key hash
 
 ## Serialize minting policy script
@@ -48,17 +49,17 @@ Time has come to build your unique minting policy. This is accomplished with the
 This works in the way that the `mint-if-ada-paid-to` executable compiles your minting policy using four parameters (following --)
 | Parameter | Description | Example |
 | --- | --- | --- |
-| 1 | filename to save your plutus script as | `plutus-scripts/mint-if-paid-to-0-2.plutus` |
-| 2 | wallet pub key hash | `df0bf673765ccce01f7cb46da22c39be0bc51433abf8e142da21cb8c` | 
-| 3 | amount of lovelaces per token minted | `2000000` |
+| 1 | filename to save your plutus script as | `plutus-scripts/mint-if-paid-to-1-0.plutus` |
+| 2 | wallet pub key hash | `3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c` | 
+| 3 | amount of lovelaces per token minted | `4000000` |
 | 4 | token name allowed to mint | `Membership` |
 ```
-[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-ada-paid-to -- plutus-scripts/mint-if-ada-paid-to-address-0-3.plutus 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2 2000000 Membership
+[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-ada-paid-to -- plutus-scripts/mint-if-ada-paid-to-address-1-0.plutus 3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c 4000000 Membership
 _______________________________________________
- Policy saved to file          : plutus-scripts/mint-if-ada-paid-to-address-0-3.plutus
- addressToReceivePayment       : 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2
- lovelace per token            : 2000000
- Parameter to contract         : IfLovelaceContractParam {addressToReceivePayment = 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2, lovelacePerToken = 2000000, acceptedTokenNameToMint = "Membership"}
+ Policy saved to file          : plutus-scripts/mint-if-ada-paid-to-address-1-0.plutus
+ addressToReceivePayment       : 3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c
+ lovelace per token            : 4000000
+ Parameter to contract         : IfLovelaceContractParam {addressToReceivePayment = 3723e650b82e52a915cae8504362d4cb16dda3ddb9311879a28dac5c, lovelacePerToken = 4000000, acceptedTokenNameToMint = "Membership"}
  address (obj type)            : PaymentPubKeyHash
  lovelace per token (obj type) : Integer
  token to mint (obj type)      : TokenName
@@ -71,14 +72,6 @@ The contents of your minting policy plutus script file should now look similar t
 {
     "type": "PlutusScriptV1",
     "description": "",
-    "cborHex": "590b89590b860100<shortened for readability>bd0048848cc00400c0088005"
+    "cborHex": "590ccd590cca010<shortened for readability>1004003002200101"
 }
-```
-
-## Determining minting policy id
-To be able to mint the tokens, you will need to calculate the policy id of the finished minting policy. This is done with the following command. This id will be used when interacting with the contract later.
-```
-~/ : cardano-cli transaction policyid --script-file smart-contracts/mint-if-ada-paid-to-address-0-3.plutus
-92b11c9351cfe054284b3757921f157745b82b602dc6805434b31d30
-~/ : 
 ```
