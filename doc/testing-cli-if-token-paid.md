@@ -122,3 +122,5 @@ When querying the contract treasury wallet, you can see that the 10 Djed were tr
 a0a43a9eb6fdae610075358a763872aa7a42d16249fc481fa2e99126b1a73a81     1        8691978614 lovelace + TxOutDatumNone
 ~/ : 
 ```
+Here we can see the same wallet using Typhon wallet. As you can see the 10 Djed displayed as part of the received transaction
+![](Wallet%20with%20testnet%20Djed.png)
