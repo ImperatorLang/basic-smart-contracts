@@ -62,8 +62,8 @@ First step is to query the paying address for UTxOs to spend. We need UTxO with 
 ~/ : 
 ```
 
-In this example, we make use of the same UTxO both for the fees and collateral, but your are free to use different if you prefer. The second UTxO is used for paying for the mint with Djed.
-Using these UTxOs, we can then construct the CLI build command to mint 20 Membership tokens, that cost 10 Djed each
+In this example, we need two UTxOs. One containing only lovelaces, to pay for transaction fee and collateral, and one UTxO containing the Djed to use as payment for minting the Membership token.
+Using these UTxOs, we can then construct the CLI build command to mint 1 Membership token, that cost 10000000 Djed_testMicroUSD (10 Djed) each.
 
 ```
 cardano-cli transaction build \
@@ -72,18 +72,18 @@ cardano-cli transaction build \
     --tx-in 2b591f9d8e00d3e302ca4962ce2b6d230e46b9f1dced0169d2324a32183cbecb#2 \
     --tx-in 6ec87b91ddb4150519948c52c8432566cd09c352e159d55294a66722e0d95576#0 \
     --tx-in-collateral 2b591f9d8e00d3e302ca4962ce2b6d230e46b9f1dced0169d2324a32183cbecb#2 \
-    --tx-out $(cat ~/testnets/preprod/wallets/contract-token-treasury.addr)+1500000+"10000000 9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe.446a65645f746573744d6963726f555344" \
-    --tx-out $(cat ~/testnets/preprod/wallets/owner-wallet.addr)+1500000+"90000000 9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe.446a65645f746573744d6963726f555344" \
-    --tx-out $(cat ~/testnets/preprod/wallets/owner-wallet.addr)+1500000+"1 80aaee7ea07a40b480ac0a88b4d75ca104885d7799daa9d25dc1b168.4d656d62657273686970" \
+    --tx-out $(cat wallets/contract-token-treasury.addr)+1500000+"10000000 9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe.446a65645f746573744d6963726f555344" \
+    --tx-out $(cat wallets/owner-wallet.addr)+1500000+"90000000 9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe.446a65645f746573744d6963726f555344" \
+    --tx-out $(cat wallets/owner-wallet.addr)+1500000+"1 80aaee7ea07a40b480ac0a88b4d75ca104885d7799daa9d25dc1b168.4d656d62657273686970" \
     --mint "1 80aaee7ea07a40b480ac0a88b4d75ca104885d7799daa9d25dc1b168.4d656d62657273686970" \
-    --mint-script-file ~/testnets/preprod/smart-contracts/mint-if-testnet-djed-paid-to-address-1-0.plutus \
-    --mint-redeemer-file ~/testnets/preprod/smart-contracts/unit.json   \
-    --change-address $(cat ~/testnets/preprod/wallets/owner-wallet.addr) \
-    --protocol-params-file ~/testnets/preprod/babbage-params.json \
-    --out-file ~/testnets/preprod/tmp-txs/tx.body \
-    --required-signer ~/testnets/preprod/wallets/owner-wallet.skey
+    --mint-script-file smart-contracts/mint-if-testnet-djed-paid-to-address-1-0.plutus \
+    --mint-redeemer-file smart-contracts/unit.json   \
+    --change-address $(cat wallets/owner-wallet.addr) \
+    --protocol-params-file babbage-params.json \
+    --out-file tmp-txs/tx.body \
+    --required-signer wallets/owner-wallet.skey
 ```
-Make sure to replace the values above with the correct ones according to your wallet, contract and token name. When the transaction is submitted, you should see a message similar to `Estimated transaction fee: Lovelace 446292
+Make sure to replace the values above with the correct ones according to your wallet, contract and token name. When the transaction is submitted, you should see a message similar to `Estimated transaction fee: Lovelace 440960
 `. If not, something is not set up correctly. Make changes to the transaction until you see this message. 
 **Note that the transaction will fail already at this point if you try to mint token with different name, or pay too little or to the wrong address.**
 
