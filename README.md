@@ -19,7 +19,7 @@ If you do not have a running environment you can use the following instructions 
 | --- | --- | --- |
 | [Owner Can Mint Policy](src/OwnerCanMintPolicy.hs) | [Instructions](doc/deploy-owner-can-mint-policy.md) | [using CLI](doc/testing-cli-owner-can-mint.md) | 
 | [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) | [using CLI](doc/testing-cli-if-lovelace-paid.md)|
-| [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) | |
+| [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) | [using CLI](doc/testing-cli-if-token-paid.md) |
 
 ## How to contact CENT 
 We would love to hear from you. Suggestions for new contracts you see missing, or if you simply need help building your contract we can do it for you at a very affordable cost.

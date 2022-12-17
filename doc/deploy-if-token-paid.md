@@ -19,35 +19,36 @@ Use one of the following Network Magics according to which network you want to w
 | Pre-Production | `--testnet-magic 1` | `export MAGIC="--testnet-magic 1"` |
 | Mainnet | `--mainnet` | `export MAGIC="--mainnet"` |
 
-The Cardano CLI commands are compatible with version 1.35.3
+The Cardano CLI commands are compatible with version 1.35.4
 ```
 ~  : cardano-cli --version
-cardano-cli 1.35.3 - linux-x86_64 - ghc-8.10
-git rev 950c4e222086fed5ca53564e642434ce9307b0b9
+cardano-cli 1.35.4 - linux-x86_64 - ghc-8.10
+git rev ebc7be471b30e5931b35f9bbc236d21c375b91bb
 ```
 
 ## Configure minting policy
-Usage of the minting policy will require an amount of tokens to be paid to a specific wallet. We will now configure the minting policy so it knows which wallet to verify correct amount ot tokens paying for the minting. 
+Usage of the minting policy will require an amount of tokens to be paid to a specific wallet. We will now configure the minting policy so it knows which wallet to verify correct amount of tokens paying for the minting. 
 
 ### Generate payment address for owner
 ```
-~/wallets  : cardano-cli address key-gen --normal-key --verification-key-file mp-pay-to-wallet.vkey --signing-key-file mp-pay-to-wallet.skey
-~/wallets  : cardano-cli address build --payment-verification-key-file mp-pay-to-wallet.vkey $MAGIC --out-file mp-pay-to-wallet.addr
+~/wallets  : cardano-cli address key-gen --normal-key --verification-key-file mint-treasury-wallet.vkey --signing-key-file mint-treasury-wallet.skey
+~/wallets  : cardano-cli address build --payment-verification-key-file mint-treasury-wallet.vkey $MAGIC --out-file mint-treasury-wallet.addr
 ```
 
 ### Fetch Payment pub key hash for address
 ```
-~/wallets  : cardano-cli address key-hash --payment-verification-key-file mp-pay-to-wallet.vkey --out-file mp-pay-to-wallet.pkh
+~/wallets  : cardano-cli address key-hash --payment-verification-key-file mint-treasury-wallet.vkey --out-file mint-treasury-wallet.pkh
 ```
 
-The contents of your mp-pay-to-wallet.pkh should now be a 56 byte hex, similar to but not identical to `7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2`. 
+The contents of your mint-treasury-wallet.pkh should now be a 56 byte hex, similar to but not identical to `ce7e716960ebcea4e07b62cf8a2962ba9b0a6f852ee452ef108f977d`. 
 All wallets have their own unique key hash
 
 ## Serialize minting policy script
 Time has come to build your unique minting policy. This is accomplished with the following command.
 This works in the way that the `mint-if-token-paid-to` executable compiles your minting policy using six parameters (following --)
 
-NOTE: It is important that you verify the policy id (currency symbol) of the token you require as payment. The policy id `c5825916b76ea72083f51b28faa07931d93677e6be92fab76d97269f` **IS NOT** the real policy id of Djed.
+**NOTE: It is important that you verify the policy id (currency symbol) of the token you require as payment.** In this example, we require testnet Djed as payment for our tokens.
+Policy id of Testnet Djed (Preprod) is `9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe` and the token name is **Djed_testMicroUSD**
 To get hold of your preferred tokens policy id, please refer to the website of the token creators.
 
 Example stable coins:
@@ -60,25 +61,25 @@ Example stable coins:
 When you have determined the policy id to use, you can use this as a parameter when building your contract as follows
 | Parameter | Description | Example |
 | --- | --- | --- |
-| 1 | filename to save your plutus script as | `plutus-scripts/mint-if-djed-paid-to-address-1-0.plutus` |
-| 2 | wallet pub key hash | `7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2` | 
-| 3 | amount of desired tokens required to mint | `10` |
-| 4 | policy id of required token | `c5825916b76ea72083f51b28faa07931d93677e6be92fab76d97269f` |
-| 5 | token name of required token | `Djed` |
+| 1 | filename to save your plutus script as | `plutus-scripts/mint-if-testnet-djed-paid-to-address-1-0.plutus` |
+| 2 | wallet pub key hash | `ce7e716960ebcea4e07b62cf8a2962ba9b0a6f852ee452ef108f977d` | 
+| 3 | amount of desired tokens required to mint | `10000000` |
+| 4 | policy id of required token | `9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe` |
+| 5 | token name of required token | `Djed_testMicroUSD` |
 | 6 | token name allowed to mint | `Membership` |
 
-In this example, the minting policy is set to require 10 Djed tokens to mint one Membership token and the Djed must be sent to the provided wallet in order to be allowed to mint the Membership token.
+In this example, the minting policy is set to require 10000000 Djed_testMicroUSD (10 Djed) tokens to mint one Membership token and the Djed must be sent to the provided wallet in order to be allowed to mint the Membership token.
 
 ```
-[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-token-paid-to -- plutus-scripts/mint-if-djed-paid-to-address-1-0.plutus 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2 10 c5825916b76ea72083f51b28faa07931d93677e6be92fab76d97269f Djed Membership
+[nix-shell:~/basic-smart-contracts]$ cabal exec mint-if-token-paid-to -- plutus-scripts/mint-if-testnet-djed-paid-to-address-1-0.plutus ce7e716960ebcea4e07b62cf8a2962ba9b0a6f852ee452ef108f977d 10000000 9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe Djed_testMicroUSD Membership
 _______________________________________________
- Policy saved to file          : plutus-scripts/mint-if-djed-paid-to-address-1-0.plutus
- addressToReceivePayment       : 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2
- Minimum token amount required : 10
- Accepted token policy paid    : c5825916b76ea72083f51b28faa07931d93677e6be92fab76d97269f
- Accepted token name paid      : Djed
+ Policy saved to file          : plutus-scripts/mint-if-testnet-djed-paid-to-address-1-0.plutus
+ addressToReceivePayment       : ce7e716960ebcea4e07b62cf8a2962ba9b0a6f852ee452ef108f977d
+ Minimum token amount required : 10000000
+ Accepted token policy paid    : 9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe
+ Accepted token name paid      : Djed_testMicroUSD
  Accepted token name to mint   : Membership
- Parameter to contract         : ContractParam {addressToReceivePayment = 7b45192a44984917462c498270f8ba855f9689a50d923d7fa00aeef2, acceptedTokenPolicyAsPayment = c5825916b76ea72083f51b28faa07931d93677e6be92fab76d97269f, acceptedTokenNameAsPayment = "Djed", numTokensAsPaymentForEachMintedToken = 10, acceptedTokenNameToMint = "Membership"}
+ Parameter to contract         : ContractParam {addressToReceivePayment = ce7e716960ebcea4e07b62cf8a2962ba9b0a6f852ee452ef108f977d, acceptedTokenPolicyAsPayment = 9772ff715b691c0444f333ba1db93b055c0864bec48fff92d1f2a7fe, acceptedTokenNameAsPayment = "Djed_testMicroUSD", numTokensAsPaymentForEachMintedToken = 10000000, acceptedTokenNameToMint = "Membership"}
  addressToPay    (obj type)    : PaymentPubKeyHash
  minTokenAmount (obj type)     : Integer
  tokenPolicy paid (obj type)   : CurrencySymbol
@@ -94,13 +95,6 @@ The contents of your minting policy plutus script file should now look similar t
 {
     "type": "PlutusScriptV1",
     "description": "",
-    "cborHex": "590b89590b860100<shortened for readability>bd0048848cc00400c0088005"
+    "cborHex": "590d16590d13010<shortened for readability>05004003002200101"
 }
-```
-To be able to mint the tokens, you will need to calculate the policy id of the finished minting policy. This is done with the following command. This id will be used when interacting with the contract later.
-```
-~/ : cardano-cli transaction policyid --script-file smart-contracts/mint-if-djed-paid-to-address-1-0.plutus
-2b7db20d5d5cc627bc32a4d14f54b86e4632c58414180421edc9426b
-~/ : 
-
 ```
