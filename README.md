@@ -13,11 +13,11 @@ If you do not have a running environment you can use the following instructions 
 - [Clone and build this repository](doc/building-the-basic-smart-contracts-repo.md)
 
 ## The contracts
-| Contract | Building instructions | Testing | Dapp sample |
+| Contract | Building instructions | Testing | Dapp off-chain code sample |
 | --- | --- | --- | --- |
 | [Owner Can Mint Policy](src/OwnerCanMintPolicy.hs) | [Instructions](doc/deploy-owner-can-mint-policy.md) | [using CLI](doc/testing-cli-owner-can-mint.md) | [using lucid](doc/dapp-sample-lucid-owner-can-mint.md)
-| [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) | [using CLI](doc/testing-cli-if-lovelace-paid.md)| |
-| [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) | [using CLI](doc/testing-cli-if-token-paid.md) | |
+| [Mint if Lovelace Paid to Wallet](src/IfLovelacePaidMintingPolicy.hs) | [Instructions](doc/deploy-if-lovelace-paid.md) | [using CLI](doc/testing-cli-if-lovelace-paid.md)| [using lucid](doc/dapp-sample-lucid-if-lovelace-paid.md) |
+| [Mint if Token Paid to Wallet](src/IfTokenPaidMintingPolicy.hs) | [Instructions](doc/deploy-if-token-paid.md) | [using CLI](doc/testing-cli-if-token-paid.md) | [using lucid](doc/dapp-sample-lucid-if-token-paid.md) |
 
 ## How to contact CENT 
 | Platform | <img width=50 height=50 src="https://cent.stakepoolcentral.com/resources/SPC.png"> |
