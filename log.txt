@@ -1,0 +1,16 @@
+cardano-cli transaction build \
+    --babbage-era \
+    $MAGIC \
+    --tx-in 9906b7c6f616339bb4e8759b1047839a578fdda7906a4aaddbd37fc2b33ccf58#0 \
+    --tx-in-collateral 9906b7c6f616339bb4e8759b1047839a578fdda7906a4aaddbd37fc2b33ccf58#0 \
+    --tx-out $(cat wallets/owner-wallet.addr)+4000000 \
+    --tx-out $(cat wallets/owner-wallet.addr)+1500000+" 1 ccde6acb2bc1aa0dc56879a130ce5a7cd8f8113858ac57858611ea67.4d656d62657273686970" \
+    --mint "1 ccde6acb2bc1aa0dc56879a130ce5a7cd8f8113858ac57858611ea67.4d656d62657273686970" \
+    --mint-script-file smart-contracts/mint-if-ada-paid-to-address-1-0.plutus \
+    --mint-redeemer-file smart-contracts/unit.json   \
+    --change-address $(cat wallets/owner-wallet.addr) \
+    --protocol-params-file babbage-params.json \
+    --calculate-plutus-script-cost tmp-txs/cost.json \
+    --required-signer-hash $(cat wallets/owner-wallet.pkh)
+Estimated transaction fee: Lovelace 444092
+
